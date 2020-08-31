@@ -6,7 +6,7 @@ gf_point( (sex=="Male") ~ total_bill,
           data = tips)
 
 # Referenzklasse festlegen
-tips$sex<- relevel(tips$sex, ref = "Female")
+tips$sex<- factor(tips$sex, levels = c("Female","male"))
 # Kontrolle
 levels(tips$sex)
 
