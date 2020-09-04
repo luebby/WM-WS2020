@@ -154,26 +154,6 @@ Bootvtlg <- do(10000) * lm(tip ~ total_bill + smoker,
 confint(Bootvtlg)
 
 
-### Regression mit der Zeit als unabhängige Variable
-
-# URL der Daten
-urlco2 <- "ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_mm_mlo.txt"
-# Datei herunterladen
-CO2 <- read.table(file=url(urlco2))
-# Daten vorverarbeiten
-CO2 <- CO2 %>%
-  rename(co2 = V5) %>% # co2 Werte in 5. Spalte
-  mutate(zeit = V1 + (V2-1)/12) %>% # zeit = jahr + (monat-1)/12
-  mutate(monat = factor(V2)) %>% # Saisonkomponente
-  select(zeit, monat, co2)
-
-gf_line(co2 ~ zeit, data = CO2)
-
-lm(co2 ~ zeit + monat, data = CO2)
-
-lm(co2 ~ zeit + monat, data = CO2) %>% coef()
-
-
 ### Wechselwirkung
 
 erglm4 <- lm(tip ~ total_bill + smoker + total_bill:smoker,
